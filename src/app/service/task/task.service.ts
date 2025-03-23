@@ -52,12 +52,20 @@ export class TaskService {
   //  Update task
   getTask(id: number): Observable<Task | undefined> {
     if (id > 0) {
+      // Check if the task exists in localTasks with localOnly
+      const localTasks = this.getLocalTasks();
+      const localOverrideTask = localTasks.find(task => task.id === id && task.localOnly);
+
+      if (localOverrideTask) {
+        return of(localOverrideTask); 
+      }
+
       // Attempt to find the task in the cached API tasks
       const apiTask = this.cachedApiTasks.find(task => task.id === id);
       if (apiTask) {
         return of(apiTask);  // Return the cached task if found
       }
-      
+
       // Fetch the task from the live API if not found in the cache
       return this.http.get<Task>(`${this.apiUrl}/${id}`).pipe(
         tap(task => {
