@@ -1,0 +1,49 @@
+<app-visitly-header [title]="taskId ? 'Update Task' : 'Create Task'" [showBackButton]="false"></app-visitly-header>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg">
+
+        <div class="card-body">
+          <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="title" class="form-label">Task Title</label>
+              <input type="text" id="title" formControlName="title" class="form-control"
+                [ngClass]="{'is-invalid': taskForm.get('title')?.invalid && taskForm.get('title')?.touched}">
+              <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched" class="invalid-feedback">
+                <small *ngIf="taskForm.get('title')?.hasError('required')">Title is required.</small>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea id="description" formControlName="description" class="form-control" rows="4"></textarea>
+            </div>
+  
+            <div class="mb-3">
+              <label for="status" class="form-label">Status</label>
+              <select id="status" formControlName="status" class="form-select">
+                <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+              </select>
+            </div>
+  
+            <div class="mb-3">
+              <label for="dueDate" class="form-label">Due Date</label>
+              <input type="date" id="dueDate" formControlName="dueDate" class="form-control" 
+                [ngClass]="{'is-invalid': taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched}">
+              <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched" class="invalid-feedback">
+                Due Date is required.
+              </div>
+            </div>
+  
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary w-48" (click)="onCancel()">Cancel</button>
+              <button type="submit" class="btn btn-primary w-48">Save Task</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

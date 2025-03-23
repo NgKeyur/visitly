@@ -1,0 +1,168 @@
+/* Global styles */
+.task-list {
+    min-height: 300px;
+    padding: 10px;
+    border: 2px dashed #ccc;
+    background-color: #f8f9fa;
+    transition: background-color 0.3s;
+    border-radius: 8px;
+  
+    &.cdk-drop-list-dragging {
+      background-color: #e9ecef;
+    }
+  }
+  
+  .cdk-drag-preview {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+  }
+  
+  .cdk-drag-placeholder {
+    opacity: 0.5;
+  }
+  
+  .card {
+    cursor: grab;
+    transition: transform 0.2s;
+  
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+  
+  .clear-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: grey;
+    font-size: 20px;
+  
+    &:hover {
+      color: red;
+    }
+  }
+  
+  .status-column {
+    background-color: #f4f5f7;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .status-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #4b4f54;
+  }
+  
+  .task-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+  
+  .card-body {
+    padding: 12px;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    word-wrap: break-word;
+    white-space: normal;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .task-actions {
+    display: flex;
+    justify-content: space-between; 
+    gap: 10px; 
+    flex-wrap: wrap;
+  }
+
+  
+  .task-actions button i {
+    margin-right: 4px;
+    font-size: 1.2rem;
+  }
+  
+  .task-actions button:disabled {
+    background-color: #e0e0e0;
+    border-color: #ccc;
+  }
+  
+  /* Button styles */
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .btn-warning {
+    background-color: #ffc107;
+    border: none;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border: none;
+  }
+  
+  /* Icon styling */
+  .bi {
+    font-size: 1.2rem;
+  }
+  
+  /* Clear search icon */
+  .position-relative {
+    position: relative;
+  }
+  
+  /* Form styling */
+  .form-select, .form-control {
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 767px) {
+    .col-md-4 {
+      flex: 0 0 100%;
+    }
+  
+    .status-column {
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .row[cdkDropListGroup] {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      white-space: nowrap;
+      gap: 10px;
+      padding-bottom: 10px;
+    }
+  
+    .col-md-4 {
+      flex: 0 0 auto;
+      width: 80vw; 
+    }
+  
+    .task-list {
+      min-width: 100%;
+    }
+  }
+  

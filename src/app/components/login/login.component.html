@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" id="username" formControlName="username" class="form-control"
+              [ngClass]="{'is-invalid': f.username.invalid && f.username.touched}">
+              <div *ngIf="f.username?.invalid && f.username?.touched" class="invalid-feedback">
+                <small *ngIf="f.username?.hasError('required')">Username is required.</small>
+                <small *ngIf="f.username?.hasError('minlength')">Username must be at least 4 characters long.</small>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" id="password" formControlName="password" class="form-control"
+                [ngClass]="{'is-invalid': f.password.invalid && f.password.touched}">
+              <div *ngIf="f.password?.invalid && f.password?.touched" class="invalid-feedback">
+                <small *ngIf="f.password?.hasError('required')">Password is required.</small>
+                <small *ngIf="f.password?.hasError('minlength')">Password must be at least 6 characters long.</small>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="loginForm.invalid">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

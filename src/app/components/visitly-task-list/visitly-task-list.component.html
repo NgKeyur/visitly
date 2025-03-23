@@ -1,0 +1,65 @@
+<app-visitly-header title="Task List" [showBackButton]="false"></app-visitly-header>
+
+<div class="container mt-4">
+  <div class="row mb-3">
+    <div class="col-12 col-md-6 col-lg-3 mb-3 position-relative">
+      <input type="text" class="form-control" placeholder="Search tasks by title" [(ngModel)]="searchQuery" (input)="searchTasks()">
+      <i *ngIf="searchQuery" (click)="clearSearchQuery()" class="bi bi-x-circle-fill position-absolute" style="top: 50%; right: 20px; transform: translateY(-50%); cursor: pointer; color: gray;"></i>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3 mb-3 position-relative">
+      <select class="form-select" [(ngModel)]="sortBy" (change)="sortTasks()">
+        <option value="">Sort By</option>
+        <option value="dueDate">Due Date</option>
+      </select>
+      <i *ngIf="sortBy" (click)="clearSortBy()" class="bi bi-x-circle-fill position-absolute" style="top: 50%; right: 50px; transform: translateY(-50%); cursor: pointer; color: gray;"></i>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3 mb-3 position-relative">
+      <select class="form-select" [(ngModel)]="filterStatus" (change)="applyFilters()">
+        <option value="">Filter by Status</option>
+        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+      </select>
+      <i *ngIf="filterStatus" (click)="clearFilterStatus()" class="bi bi-x-circle-fill position-absolute" style="top: 50%; right: 50px; transform: translateY(-50%); cursor: pointer; color: gray;"></i>
+    </div>
+
+    <div class="col text-end">
+      <button class="btn btn-primary" (click)="navigateToAddTask()">Add New Task</button>
+    </div>
+  </div>
+
+  <div cdkDropListGroup class="row">
+    <div class="col-md-4 mb-4" *ngFor="let status of statuses">
+      <div class="status-column">
+        <h4 class="status-title">{{ status }}</h4>
+        <div cdkDropList [cdkDropListData]="getTasksByStatus(status)" (cdkDropListDropped)="drop($event, status)" [id]="status + '-list'" class="task-list bg-light">
+          <div *ngFor="let task of getTasksByStatus(status)" cdkDrag [cdkDragData]="task" class="task-card mb-3 shadow-sm">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ task.title }}</h5>
+                <p class="card-text">{{ task.description }}</p>
+                <p><strong>Status:</strong> {{ task.status }}</p>
+                <p><strong>Due Date:</strong> {{ task.dueDate }}</p>
+                
+                <div class="task-actions d-flex justify-content-between">
+                  <button class="btn btn-success me-2 flex-fill" (click)="markAsCompleted(task)" *ngIf="task.status !== 'Completed'">
+                    <i class="bi bi-check-circle"></i> Mark as Completed
+                  </button>
+                
+                  <button class="btn btn-warning me-2 flex-fill" *ngIf="task.status !== 'Completed'"  (click)="editTask(task)">
+                    <i class="bi bi-pencil-square"></i> 
+                  </button>
+                
+                  <button class="btn btn-danger me-2 align-items-center" (click)="deleteTask(task.id)">
+                    <i class="bi bi-trash"></i> 
+                  </button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
